@@ -3,30 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Docs Hub</title>
+    <title>Notion Docs Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --retro-bg: #0a0e14;
-            --retro-card: #1a1f29;
-            --retro-primary: #7ee3b2;
-            --retro-secondary: #5ccfe6;
-            --retro-accent: #c3a6ff;
-            --retro-text: #b3b9c5;
-            --retro-border: #2d3546;
-            --retro-highlight: #2a3340;
+            --notion-bg: #ffffff;
+            --notion-sidebar: #f7f7f7;
+            --notion-card: #ffffff;
+            --notion-primary: #37352f;
+            --notion-secondary: #6b7280;
+            --notion-accent: #3b82f6;
+            --notion-text: #374151;
+            --notion-border: #e5e7eb;
+            --notion-highlight: #f3f4f6;
+            --notion-tag-blue: #dbeafe;
+            --notion-tag-green: #d1fae5;
+            --notion-tag-purple: #ede9fe;
+            --notion-tag-yellow: #fef3c7;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', 'Segoe UI', monospace;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
-            background-color: var(--retro-bg);
-            color: var(--retro-text);
+            background-color: var(--notion-bg);
+            color: var(--notion-text);
             line-height: 1.6;
             height: 100vh;
             overflow: hidden;
@@ -39,97 +44,98 @@
             margin: 0 auto;
         }
         
-        /* Sidebar */
+        /* Sidebar - Notion Style */
         .sidebar {
-            width: 260px;
-            background-color: var(--retro-card);
-            border-right: 1px solid var(--retro-border);
+            width: 280px;
+            background-color: var(--notion-sidebar);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             flex-shrink: 0;
+            border-right: 1px solid var(--notion-border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
         .logo {
-            padding: 25px 20px;
-            border-bottom: 1px solid var(--retro-border);
+            padding: 22px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
+            border-bottom: 1px solid var(--notion-border);
         }
         
         .logo h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(90deg, var(--retro-primary), var(--retro-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 1.5rem;
+            color: var(--notion-primary);
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: -0.5px;
         }
         
         .logo i {
-            color: var(--retro-primary);
-            font-size: 1.8rem;
+            color: var(--notion-accent);
+            font-size: 1.5rem;
         }
         
         .search-box {
             padding: 20px;
-            border-bottom: 1px solid var(--retro-border);
+            border-bottom: 1px solid var(--notion-border);
         }
         
         .search-box input {
             width: 100%;
-            padding: 12px 15px;
-            background-color: var(--retro-bg);
-            border: 1px solid var(--retro-border);
-            border-radius: 6px;
-            color: var(--retro-text);
+            padding: 10px 14px;
+            background-color: var(--notion-bg);
+            border: 1px solid var(--notion-border);
+            border-radius: 8px;
+            color: var(--notion-text);
             font-size: 0.95rem;
+            transition: all 0.2s;
         }
         
         .search-box input:focus {
             outline: none;
-            border-color: var(--retro-primary);
+            border-color: var(--notion-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
         .nav-section {
-            padding: 20px 0;
-            border-bottom: 1px solid var(--retro-border);
+            padding: 16px 0;
+            border-bottom: 1px solid var(--notion-border);
         }
         
         .nav-title {
-            padding: 0 20px 15px;
-            font-size: 0.9rem;
+            padding: 0 20px 12px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--retro-secondary);
+            letter-spacing: 0.5px;
+            color: var(--notion-secondary);
             font-weight: 600;
         }
         
         .nav-item {
-            padding: 12px 20px;
+            padding: 8px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
             cursor: pointer;
             transition: all 0.2s;
-            border-left: 3px solid transparent;
+            border-radius: 4px;
+            margin: 0 8px;
         }
         
         .nav-item:hover {
-            background-color: var(--retro-highlight);
+            background-color: var(--notion-highlight);
         }
         
         .nav-item.active {
-            background-color: var(--retro-highlight);
-            border-left-color: var(--retro-primary);
-            color: var(--retro-primary);
+            background-color: var(--notion-highlight);
+            color: var(--notion-accent);
         }
         
         .nav-item i {
             width: 20px;
             text-align: center;
+            font-size: 1rem;
         }
         
         /* Main Content */
@@ -138,205 +144,267 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--notion-bg);
         }
         
         .top-bar {
-            padding: 20px 30px;
-            border-bottom: 1px solid var(--retro-border);
+            padding: 18px 28px;
+            border-bottom: 1px solid var(--notion-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--retro-card);
+            background-color: var(--notion-bg);
         }
         
         .breadcrumb {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         
         .breadcrumb a {
-            color: var(--retro-text);
+            color: var(--notion-secondary);
             text-decoration: none;
             transition: color 0.2s;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
         
         .breadcrumb a:hover {
-            color: var(--retro-primary);
+            color: var(--notion-primary);
+            background-color: var(--notion-highlight);
         }
         
         .breadcrumb .separator {
-            color: var(--retro-border);
+            color: var(--notion-border);
+            font-size: 0.8rem;
         }
         
         .view-controls {
             display: flex;
-            gap: 15px;
+            gap: 8px;
+            background-color: var(--notion-highlight);
+            padding: 4px;
+            border-radius: 8px;
         }
         
         .view-btn {
             background: none;
-            border: 1px solid var(--retro-border);
-            color: var(--retro-text);
-            padding: 8px 15px;
+            border: none;
+            color: var(--notion-secondary);
+            padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .view-btn:hover {
-            border-color: var(--retro-primary);
-            color: var(--retro-primary);
+            color: var(--notion-primary);
+            background-color: var(--notion-bg);
+        }
+        
+        .view-btn.active {
+            color: var(--notion-primary);
+            background-color: var(--notion-bg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
         
         .content-area {
             flex: 1;
-            padding: 30px;
+            padding: 28px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 28px;
         }
         
-        /* Card Layout for Commands */
+        /* Card Layout for Commands - Notion Style */
         .commands-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
             gap: 20px;
         }
         
-        .command-card {
-            background-color: var(--retro-card);
-            border: 1px solid var(--retro-border);
-            border-radius: 8px;
+        .commands-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .commands-list .command-card {
+            display: flex;
+            align-items: flex-start;
             padding: 20px;
+            margin-bottom: 0;
+        }
+        
+        .commands-list .card-header {
+            flex: 1;
+            margin-bottom: 0;
+            margin-right: 20px;
+        }
+        
+        .commands-list .command-syntax {
+            flex: 1;
+            margin-bottom: 0;
+            margin-right: 20px;
+        }
+        
+        .commands-list .copy-btn {
+            align-self: center;
+        }
+        
+        .command-card {
+            background-color: var(--notion-card);
+            border: 1px solid var(--notion-border);
+            border-radius: 12px;
+            padding: 22px;
             transition: all 0.3s;
             position: relative;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
         
         .command-card:hover {
-            border-color: var(--retro-primary);
+            border-color: var(--notion-accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            align-items: flex-start;
+            margin-bottom: 16px;
         }
         
         .command-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: var(--retro-primary);
+            color: var(--notion-primary);
+            line-height: 1.4;
         }
         
         .copy-btn {
-            background-color: var(--retro-bg);
-            border: 1px solid var(--retro-border);
-            color: var(--retro-text);
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
+            background-color: var(--notion-highlight);
+            border: 1px solid var(--notion-border);
+            color: var(--notion-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
+            flex-shrink: 0;
         }
         
         .copy-btn:hover {
-            background-color: var(--retro-primary);
-            color: var(--retro-bg);
-            border-color: var(--retro-primary);
+            background-color: var(--notion-accent);
+            color: white;
+            border-color: var(--notion-accent);
         }
         
         .command-syntax {
-            background-color: var(--retro-bg);
-            border: 1px solid var(--retro-border);
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 15px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.95rem;
+            background-color: var(--notion-highlight);
+            border: 1px solid var(--notion-border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Roboto Mono', monospace;
+            font-size: 0.9rem;
             line-height: 1.5;
-            color: var(--retro-secondary);
+            color: var(--notion-primary);
             overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
+            white-space: nowrap;
         }
         
         .command-desc {
-            color: var(--retro-text);
+            color: var(--notion-secondary);
             font-size: 0.95rem;
             line-height: 1.5;
+            margin-bottom: 12px;
         }
         
         .command-tag {
             display: inline-block;
-            padding: 4px 10px;
-            background-color: var(--retro-highlight);
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-top: 10px;
-            color: var(--retro-accent);
+            padding: 4px 12px;
+            background-color: var(--notion-tag-blue);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--notion-accent);
+        }
+        
+        .tag-green {
+            background-color: var(--notion-tag-green);
+            color: #059669;
+        }
+        
+        .tag-purple {
+            background-color: var(--notion-tag-purple);
+            color: #7c3aed;
+        }
+        
+        .tag-yellow {
+            background-color: var(--notion-tag-yellow);
+            color: #d97706;
         }
         
         /* Section Headers */
         .section-header {
-            margin-bottom: 10px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
         
         .section-header h2 {
             font-size: 1.8rem;
-            color: var(--retro-primary);
-            font-weight: 600;
+            color: var(--notion-primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
         
         .section-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--retro-primary);
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--notion-highlight);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--retro-bg);
-            font-size: 1.2rem;
+            color: var(--notion-accent);
+            font-size: 1.3rem;
         }
         
         .section-description {
-            color: var(--retro-secondary);
-            margin-bottom: 25px;
+            color: var(--notion-secondary);
+            margin-bottom: 28px;
             font-size: 1rem;
             max-width: 800px;
             line-height: 1.6;
         }
         
-        /* Toast Notification */
+        /* Toast Notification - Notion Style */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--retro-primary);
-            color: var(--retro-bg);
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-weight: 600;
+            bottom: 28px;
+            right: 28px;
+            background-color: var(--notion-primary);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             transform: translateY(100px);
             opacity: 0;
             transition: transform 0.3s, opacity 0.3s;
@@ -352,19 +420,23 @@
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: var(--retro-border);
+            color: var(--notion-secondary);
+            background-color: var(--notion-highlight);
+            border-radius: 12px;
+            border: 2px dashed var(--notion-border);
         }
         
         .empty-state i {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            color: var(--retro-border);
+            color: var(--notion-border);
         }
         
         .empty-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--retro-text);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--notion-primary);
+            font-weight: 600;
         }
         
         /* Responsive */
@@ -374,7 +446,7 @@
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .container {
                 flex-direction: column;
             }
@@ -388,30 +460,62 @@
             .top-bar {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
+                gap: 16px;
             }
             
             .view-controls {
-                align-self: flex-end;
+                align-self: flex-start;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .content-area {
+                padding: 20px;
+            }
+            
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .commands-list .command-card {
+                flex-direction: column;
+            }
+            
+            .commands-list .card-header,
+            .commands-list .command-syntax {
+                margin-right: 0;
+                margin-bottom: 16px;
+                width: 100%;
             }
         }
         
         /* Scrollbar Styling */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         
         ::-webkit-scrollbar-track {
-            background: var(--retro-card);
+            background: transparent;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: var(--retro-border);
-            border-radius: 5px;
+            background: #c1c1c1;
+            border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--retro-primary);
+            background: #a8a8a8;
+        }
+        
+        /* Selection */
+        ::selection {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Focus outline */
+        *:focus {
+            outline: 2px solid var(--notion-accent);
+            outline-offset: 2px;
         }
     </style>
 </head>
@@ -420,55 +524,43 @@
         <!-- Sidebar Navigation -->
         <div class="sidebar">
             <div class="logo">
-            <!--    <i class="fas fa-terminal"></i> -->
-                <h1>Documents</h1>
+                <i class="fas fa-book-open"></i>
+                <h1>Docs Hub</h1>
             </div>
             
             <div class="search-box">
-                <input type="text" placeholder="Search docs...">
+                <input type="text" placeholder="Search documentation...">
             </div>
             
             <div class="nav-section">
                 <div class="nav-title">Development</div>
                 <div class="nav-item active" data-section="git">
                     <i class="fab fa-git-alt"></i>
-                    <span>Git tag Commands</span>
+                    <span>Git Tag Commands</span>
                 </div>
-              <!--  <div class="nav-item" data-section="docker">
+                <div class="nav-item" data-section="git-clone">
+                    <i class="fas fa-code-branch"></i>
+                    <span>Git Clone/Merge</span>
+                </div>
+                <div class="nav-item" data-section="docker">
                     <i class="fab fa-docker"></i>
-                    <span>Docker</span>
-                </div> -->
-                <div class="nav-item" data-section="linux">
-                    <i class="fab fa-linux"></i>
-                    <span>Git Clone/Merge Commands</span>
+                    <span>Docker Commands</span>
                 </div>
-             <!--   <div class="nav-item" data-section="vscode">
-                    <i class="fas fa-code"></i>
-                    <span>VS Code</span>
-                </div> -->
             </div>
             
-           <div class="nav-section">
-                <div class="nav-title">OS</div>
-                <div class="nav-item" data-section="html">
-                    <i class="fab fa-html5"></i>
+            <div class="nav-section">
+                <div class="nav-title">System</div>
+                <div class="nav-item" data-section="linux">
+                    <i class="fab fa-linux"></i>
                     <span>Linux Commands</span>
                 </div>
-              <!--  <div class="nav-item" data-section="css">
-                    <i class="fab fa-css3-alt"></i>
-                    <span>CSS Reference</span>
+                <div class="nav-item" data-section="bash">
+                    <i class="fas fa-terminal"></i>
+                    <span>Bash Scripting</span>
                 </div>
-                <div class="nav-item" data-section="js">
-                    <i class="fab fa-js-square"></i>
-                    <span>JavaScript</span>
-                </div>
-                <div class="nav-item" data-section="react">
-                    <i class="fab fa-react"></i>
-                    <span>React</span>
-                </div> -->
-            </div> 
+            </div>
             
-       <!--     <div class="nav-section">
+            <div class="nav-section">
                 <div class="nav-title">Database</div>
                 <div class="nav-item" data-section="sql">
                     <i class="fas fa-database"></i>
@@ -479,38 +571,24 @@
                     <span>MongoDB</span>
                 </div>
             </div>
-            
-            <div class="nav-section">
-                <div class="nav-title">DevOps</div>
-                <div class="nav-item" data-section="kubernetes">
-                    <i class="fas fa-ship"></i>
-                    <span>Kubernetes</span>
-                </div>
-                <div class="nav-item" data-section="aws">
-                    <i class="fab fa-aws"></i>
-                    <span>AWS CLI</span>
-                </div>
-            </div> -->
         </div>
         
         <!-- Main Content Area -->
         <div class="main-content">
             <div class="top-bar">
                 <div class="breadcrumb">
-                 <!--   <a href="#">Home</a>
-                    <span class="separator">/</span> -->
-                 <!--   <a href="#">Development</a>
-                    <span class="separator">/</span> -->
+                    <span>Development</span>
+                    <span class="separator">/</span>
                     <span>Git Tag Commands</span>
                 </div>
                 
                 <div class="view-controls">
-                    <button class="view-btn" id="gridView">
-                        <i class="fas fa-th-large"></i>
+                    <button class="view-btn active" id="gridView">
+                        <i class="fas fa-grid"></i>
                         Grid
                     </button>
                     <button class="view-btn" id="listView">
-                        <i class="fas fa-list"></i>
+                        <i class="fas fa-bars"></i>
                         List
                     </button>
                 </div>
@@ -523,20 +601,39 @@
                         <div class="section-icon">
                             <i class="fab fa-git-alt"></i>
                         </div>
-                        <h2>Git tag Commands</h2>
+                        <h2>Git Tag Commands</h2>
                     </div>
                     
-                   <!-- <p class="section-description">
-                        Complete guide to Git commands for version control. Tags are ref's that point to specific points in Git history. 
+                    <p class="section-description">
+                        Tags are references that point to specific points in Git history. 
                         Tagging is generally used to capture a point in history that is used for a marked version release.
-                    </p> -->
+                    </p>
                     
                     <div class="commands-grid">
                         <!-- Git Commands will be inserted here by JavaScript -->
                     </div>
                 </div>
                 
-                <!-- Other Sections (Initially Hidden) 
+                <!-- Other Sections (Initially Hidden) -->
+                <div id="git-clone" class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h2>Git Clone & Merge Commands</h2>
+                    </div>
+                    
+                    <p class="section-description">
+                        Essential commands for cloning repositories and merging branches in Git.
+                    </p>
+                    
+                    <div class="empty-state">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>Clone & Merge Documentation</h3>
+                        <p>Git clone and merge commands will be added here soon.</p>
+                    </div>
+                </div>
+                
                 <div id="docker" class="content-section">
                     <div class="section-header">
                         <div class="section-icon">
@@ -573,9 +670,26 @@
                         <h3>Linux Documentation</h3>
                         <p>Linux commands and examples will be added here soon.</p>
                     </div>
-                </div> -->
+                </div>
                 
-                <!-- Add more sections for other documentation topics -->
+                <div id="sql" class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h2>SQL Commands</h2>
+                    </div>
+                    
+                    <p class="section-description">
+                        Common SQL commands for database querying, manipulation, and administration.
+                    </p>
+                    
+                    <div class="empty-state">
+                        <i class="fas fa-database"></i>
+                        <h3>SQL Documentation</h3>
+                        <p>SQL commands and examples will be added here soon.</p>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -593,61 +707,71 @@
                 title: "Create Lightweight Tag",
                 syntax: "git tag tagName",
                 desc: "Creates a lightweight tag for the current commit. Lightweight tags are just pointers to specific commits.",
-                tag: "CREATE"
+                tag: "CREATE",
+                tagClass: "tag-green"
             },
             {
                 title: "Create Annotated Tag",
                 syntax: 'git tag -a tagName -m "message"',
                 desc: "Creates an annotated tag with a message. Annotated tags store extra metadata including tagger name, email, and date.",
-                tag: "CREATE"
+                tag: "CREATE",
+                tagClass: "tag-green"
             },
             {
                 title: "List Tags",
                 syntax: "git tag",
                 desc: "Lists all tags in the current repository in alphabetical order.",
-                tag: "LIST"
+                tag: "LIST",
+                tagClass: "tag-yellow"
             },
             {
                 title: "Show Tag Info",
                 syntax: "git show tagName",
                 desc: "Shows information about a specific tag, including the tagger, date, and the associated commit.",
-                tag: "INFO"
+                tag: "INFO",
+                tagClass: "tag-yellow"
             },
             {
                 title: "Push Single Tag",
                 syntax: "git push origin tagName",
                 desc: "Pushes a specific tag to the remote repository named 'origin'.",
-                tag: "PUSH"
+                tag: "PUSH",
+                tagClass: "tag-purple"
             },
             {
                 title: "Push All Tags",
                 syntax: "git push --tags",
                 desc: "Pushes all tags from your local repository to the remote repository.",
-                tag: "PUSH"
+                tag: "PUSH",
+                tagClass: "tag-purple"
             },
             {
                 title: "Delete Local Tag",
                 syntax: "git tag -d tagName",
                 desc: "Deletes a tag from your local repository. Also works with: git tag --delete tagName",
-                tag: "DELETE"
+                tag: "DELETE",
+                tagClass: ""
             },
             {
                 title: "Delete Remote Tag",
                 syntax: "git push origin -d tagName",
                 desc: "Deletes a tag from the remote repository. Also works with: git push origin --delete tagName",
-                tag: "DELETE"
+                tag: "DELETE",
+                tagClass: ""
             },
             {
                 title: "Delete Multiple Tags",
                 syntax: "git tag -d tagName1 tagName2",
                 desc: "Deletes multiple tags from your local repository in a single command.",
-                tag: "DELETE"
+                tag: "DELETE",
+                tagClass: ""
             },
             {
                 title: "Delete Multiple Remote Tags",
                 syntax: "git push origin -d tagName1 tagName2",
                 desc: "Deletes multiple tags from the remote repository in a single command.",
-                tag: "DELETE"
+                tag: "DELETE",
+                tagClass: ""
             }
         ];
         
@@ -673,10 +797,9 @@
                         </button>
                     </div>
                     <div class="command-syntax">${command.syntax}</div>
+                    <div class="command-desc">${command.desc}</div>
+                    <div class="command-tag ${command.tagClass}">${command.tag}</div>
                 `;
-
-                // <div class="command-desc">${command.desc}</div>
-                // <div class="command-tag">${command.tag}</div>
                 
                 // Add copy functionality
                 const copyBtn = card.querySelector('.copy-btn');
@@ -718,18 +841,26 @@
             });
             
             // View controls
-            document.getElementById('gridView').addEventListener('click', () => {
-                const grid = document.querySelector('.commands-grid');
-                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(450px, 1fr))';
-                document.getElementById('gridView').style.borderColor = 'var(--retro-primary)';
-                document.getElementById('listView').style.borderColor = 'var(--retro-border)';
+            const gridViewBtn = document.getElementById('gridView');
+            const listViewBtn = document.getElementById('listView');
+            
+            gridViewBtn.addEventListener('click', () => {
+                const commandsContainer = document.querySelector('.commands-grid');
+                commandsContainer.classList.remove('commands-list');
+                commandsContainer.classList.add('commands-grid');
+                commandsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(420px, 1fr))';
+                
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
             });
             
-            document.getElementById('listView').addEventListener('click', () => {
-                const grid = document.querySelector('.commands-grid');
-                grid.style.gridTemplateColumns = '1fr';
-                document.getElementById('listView').style.borderColor = 'var(--retro-primary)';
-                document.getElementById('gridView').style.borderColor = 'var(--retro-border)';
+            listViewBtn.addEventListener('click', () => {
+                const commandsContainer = document.querySelector('.commands-grid');
+                commandsContainer.classList.remove('commands-grid');
+                commandsContainer.classList.add('commands-list');
+                
+                listViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
             });
             
             // Search functionality
@@ -740,7 +871,7 @@
                 if (searchTerm.length === 0) {
                     // Show all commands
                     document.querySelectorAll('.command-card').forEach(card => {
-                        card.style.display = 'block';
+                        card.style.display = 'flex';
                     });
                     return;
                 }
@@ -752,7 +883,7 @@
                     const desc = card.querySelector('.command-desc').textContent.toLowerCase();
                     
                     if (title.includes(searchTerm) || syntax.includes(searchTerm) || desc.includes(searchTerm)) {
-                        card.style.display = 'block';
+                        card.style.display = 'flex';
                     } else {
                         card.style.display = 'none';
                     }
@@ -785,7 +916,7 @@
         function updateBreadcrumb(sectionName) {
             const breadcrumb = document.querySelector('.breadcrumb');
             breadcrumb.innerHTML = `
-                <a href="#">Home</a>
+                <a href="#">Development</a>
                 <span class="separator">/</span>
                 <span>${sectionName}</span>
             `;
@@ -811,7 +942,7 @@
                         // Simulate a delay for loading
                         setTimeout(() => {
                             emptyState.innerHTML = `
-                                <i class="fas fa-check-circle" style="color: var(--retro-primary)"></i>
+                                <i class="fas fa-check-circle" style="color: #10b981"></i>
                                 <h3>${this.querySelector('span').textContent} Documentation</h3>
                                 <p>This section would contain detailed documentation for ${this.querySelector('span').textContent}.</p>
                                 <p style="margin-top: 20px; font-size: 0.9rem;">In a real implementation, this would be populated with actual commands and references.</p>
