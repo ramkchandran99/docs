@@ -421,11 +421,11 @@
         <div class="sidebar">
             <div class="logo">
             <!--    <i class="fas fa-terminal"></i> -->
-                <h1>DOCS</h1>
+                <h1>Documents</h1>
             </div>
             
             <div class="search-box">
-                <input type="text" placeholder="Search documentation...">
+                <input type="text" placeholder="Search docs...">
             </div>
             
             <div class="nav-section">
@@ -499,8 +499,8 @@
                 <div class="breadcrumb">
                  <!--   <a href="#">Home</a>
                     <span class="separator">/</span> -->
-                    <a href="#">Development</a>
-                    <span class="separator">/</span>
+                 <!--   <a href="#">Development</a>
+                    <span class="separator">/</span> -->
                     <span>Git Commands</span>
                 </div>
                 
@@ -673,9 +673,10 @@
                         </button>
                     </div>
                     <div class="command-syntax">${command.syntax}</div>
-                    <div class="command-desc">${command.desc}</div>
-                    <div class="command-tag">${command.tag}</div>
                 `;
+
+                // <div class="command-desc">${command.desc}</div>
+                // <div class="command-tag">${command.tag}</div>
                 
                 // Add copy functionality
                 const copyBtn = card.querySelector('.copy-btn');
