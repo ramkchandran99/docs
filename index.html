@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Tag Commands Reference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        header h1 i {
+            color: #f14e32;
+        }
+        
+        header p {
+            opacity: 0.85;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e1e8f0;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 18px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tab:hover {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+        
+        .tab.active {
+            background-color: white;
+            color: #2c3e50;
+            border-bottom-color: #f14e32;
+        }
+        
+        .tab-content {
+            padding: 30px;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .content-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e1e8f0;
+        }
+        
+        .content-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .content-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 800px;
+        }
+        
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+            gap: 25px;
+        }
+        
+        .command-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .command-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .command-card.create {
+            border-left-color: #2ecc71;
+        }
+        
+        .command-card.list {
+            border-left-color: #3498db;
+        }
+        
+        .command-card.push {
+            border-left-color: #9b59b6;
+        }
+        
+        .command-card.delete {
+            border-left-color: #e74c3c;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .command-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .command-type {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .create .command-type {
+            background-color: #e8f6ef;
+            color: #27ae60;
+        }
+        
+        .list .command-type {
+            background-color: #ebf5fb;
+            color: #2980b9;
+        }
+        
+        .push .command-type {
+            background-color: #f4ecf7;
+            color: #8e44ad;
+        }
+        
+        .delete .command-type {
+            background-color: #fdedec;
+            color: #c0392b;
+        }
+        
+        .command-syntax {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 18px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .command-desc {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+        
+        .note {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff9e6;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .note h3 {
+            color: #d35400;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .command-syntax {
+                font-size: 1rem;
+                padding: 15px;
+            }
+            
+            .tab {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 8px;
+            }
+            
+            header, .tab-content {
+                padding: 20px;
+            }
+            
+            .command-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-git-alt"></i> Git Tag Commands Reference</h1>
+            <p>Complete guide to creating, listing, pushing, and deleting tags in Git with detailed examples and explanations</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="git-tags">
+                <i class="fas fa-tags"></i>
+                Git Tag Commands
+            </div>
+            <div class="tab" data-tab="future-content-1">
+                <i class="fas fa-code-branch"></i>
+                Branch Commands
+            </div>
+            <div class="tab" data-tab="future-content-2">
+                <i class="fas fa-history"></i>
+                Commit History
+            </div>
+            <div class="tab" data-tab="future-content-3">
+                <i class="fas fa-cogs"></i>
+                Advanced Git
+            </div>
+        </div>
+        
+        <div class="tab-content active" id="git-tags">
+            <div class="content-header">
+                <h2><i class="fas fa-tag"></i> Git Tag Commands</h2>
+                <p>Tags are ref's that point to specific points in Git history. Tagging is generally used to capture a point in history that is used for a marked version release (i.e., v1.0.0).</p>
+            </div>
+            
+            <div class="commands-grid">
+                <!-- Creating Tags -->
+                <div class="command-card create">
+                    <div class="card-header">
+                        <div class="command-title">Creating Tags</div>
+                        <div class="command-type">CREATE</div>
+                    </div>
+                    <div class="command-syntax">git tag tagName</div>
+                    <div class="command-desc">Creates a lightweight tag (pointer to a specific commit) for the current branch you've checked out.</div>
+                </div>
+                
+                <div class="command-card create">
+                    <div class="card-header">
+                        <div class="command-title">Annotated Tags</div>
+                        <div class="command-type">CREATE</div>
+                    </div>
+                    <div class="command-syntax">git tag -a tagName -m "message"</div>
+                    <div class="command-desc">Creates an annotated tag with a message. Annotated tags store extra metadata including the tagger name, email, and date.</div>
+                </div>
+                
+                <!-- Listing Tags -->
+                <div class="command-card list">
+                    <div class="card-header">
+                        <div class="command-title">Listing Tags</div>
+                        <div class="command-type">LIST</div>
+                    </div>
+                    <div class="command-syntax">git tag</div>
+                    <div class="command-desc">Lists all tags in the current repository in alphabetical order.</div>
+                </div>
+                
+                <div class="command-card list">
+                    <div class="card-header">
+                        <div class="command-title">Show Tag Info</div>
+                        <div class="command-type">LIST</div>
+                    </div>
+                    <div class="command-syntax">git show tagName</div>
+                    <div class="command-desc">Shows information about a specific tag, including the tagger, date, and the associated commit.</div>
+                </div>
+                
+                <!-- Pushing Tags -->
+                <div class="command-card push">
+                    <div class="card-header">
+                        <div class="command-title">Push Single Tag</div>
+                        <div class="command-type">PUSH</div>
+                    </div>
+                    <div class="command-syntax">git push origin tagName</div>
+                    <div class="command-desc">Pushes a specific tag to the remote repository named "origin".</div>
+                </div>
+                
+                <div class="command-card push">
+                    <div class="card-header">
+                        <div class="command-title">Push All Tags</div>
+                        <div class="command-type">PUSH</div>
+                    </div>
+                    <div class="command-syntax">git push --tags</div>
+                    <div class="command-desc">Pushes all tags from your local repository to the remote repository.</div>
+                </div>
+                
+                <!-- Deleting Tags -->
+                <div class="command-card delete">
+                    <div class="card-header">
+                        <div class="command-title">Delete Local Tag</div>
+                        <div class="command-type">DELETE</div>
+                    </div>
+                    <div class="command-syntax">git tag -d tagName<br>git tag --delete tagName</div>
+                    <div class="command-desc">Deletes a tag from your local repository. Both commands work identically.</div>
+                </div>
+                
+                <div class="command-card delete">
+                    <div class="card-header">
+                        <div class="command-title">Delete Remote Tag</div>
+                        <div class="command-type">DELETE</div>
+                    </div>
+                    <div class="command-syntax">git push origin -d tagName<br>git push origin --delete tagName</div>
+                    <div class="command-desc">Deletes a tag from the remote repository. Both commands work identically.</div>
+                </div>
+                
+                <div class="command-card delete">
+                    <div class="card-header">
+                        <div class="command-title">Delete Multiple Tags</div>
+                        <div class="command-type">DELETE</div>
+                    </div>
+                    <div class="command-syntax">git tag -d tagName1 tagName2</div>
+                    <div class="command-desc">Deletes multiple tags from your local repository in a single command.</div>
+                </div>
+                
+                <div class="command-card delete">
+                    <div class="card-header">
+                        <div class="command-title">Delete Multiple Remote Tags</div>
+                        <div class="command-type">DELETE</div>
+                    </div>
+                    <div class="command-syntax">git push origin -d tagName1 tagName2</div>
+                    <div class="command-desc">Deletes multiple tags from the remote repository in a single command.</div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <h3><i class="fas fa-lightbulb"></i> Important Notes</h3>
+                <p>1. Lightweight tags are just pointers to specific commits, while annotated tags are stored as full objects in the Git database with their own checksum, tagger info, and message.</p>
+                <p>2. Tags are not automatically pushed to remotes when you run <code>git push</code>. You must explicitly push tags using <code>git push --tags</code> or <code>git push origin tagName</code>.</p>
+                <p>3. Deleting a tag locally doesn't delete it from remote repositories, and vice versa. You need to delete tags in both places separately if needed.</p>
+            </div>
+        </div>
+        
+        <!-- Future Content Tabs -->
+        <div class="tab-content" id="future-content-1">
+            <div class="content-header">
+                <h2><i class="fas fa-code-branch"></i> Git Branch Commands</h2>
+                <p>This section will contain comprehensive Git branch commands and workflows.</p>
+            </div>
+            <div style="text-align: center; padding: 60px 20px; color: #7f8c8d;">
+                <i class="fas fa-tools fa-3x" style="margin-bottom: 20px;"></i>
+                <h3>Content Coming Soon</h3>
+                <p>This section is under development. Check back later for Git branch commands and workflows.</p>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="future-content-2">
+            <div class="content-header">
+                <h2><i class="fas fa-history"></i> Git Commit History</h2>
+                <p>This section will contain commands for viewing and navigating Git commit history.</p>
+            </div>
+            <div style="text-align: center; padding: 60px 20px; color: #7f8c8d;">
+                <i class="fas fa-tools fa-3x" style="margin-bottom: 20px;"></i>
+                <h3>Content Coming Soon</h3>
+                <p>This section is under development. Check back later for Git commit history commands and visualization.</p>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="future-content-3">
+            <div class="content-header">
+                <h2><i class="fas fa-cogs"></i> Advanced Git Commands</h2>
+                <p>This section will contain advanced Git commands for complex workflows and troubleshooting.</p>
+            </div>
+            <div style="text-align: center; padding: 60px 20px; color: #7f8c8d;">
+                <i class="fas fa-tools fa-3x" style="margin-bottom: 20px;"></i>
+                <h3>Content Coming Soon</h3>
+                <p>This section is under development. Check back later for advanced Git commands and techniques.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Git Tag Commands Reference | Created for learning and reference purposes</p>
+            <p style="margin-top: 10px;">New content will be added to additional tabs in the future.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Add subtle animation to command cards on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.command-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
