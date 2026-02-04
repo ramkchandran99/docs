@@ -3,161 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git Tag Commands Reference</title>
+    <title>Retro Docs Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --retro-bg: #0a0e14;
+            --retro-card: #1a1f29;
+            --retro-primary: #7ee3b2;
+            --retro-secondary: #5ccfe6;
+            --retro-accent: #c3a6ff;
+            --retro-text: #b3b9c5;
+            --retro-border: #2d3546;
+            --retro-highlight: #2a3340;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', 'Segoe UI', monospace;
         }
         
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: var(--retro-bg);
+            color: var(--retro-text);
             line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            height: 100vh;
             overflow: hidden;
         }
         
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
-            color: white;
-            padding: 25px 30px;
-            text-align: center;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
+        .container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        header h1 i {
-            color: #f14e32;
-        }
-        
-        header p {
-            opacity: 0.85;
-            font-size: 1.1rem;
-            max-width: 700px;
+            height: 100vh;
+            max-width: 1600px;
             margin: 0 auto;
         }
         
-        .tabs {
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: var(--retro-card);
+            border-right: 1px solid var(--retro-border);
             display: flex;
-            background-color: #f1f5f9;
-            border-bottom: 1px solid #e1e8f0;
-            overflow-x: auto;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
         
-        .tab {
-            padding: 18px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .tab:hover {
-            background-color: #e2e8f0;
-            color: #475569;
-        }
-        
-        .tab.active {
-            background-color: white;
-            color: #2c3e50;
-            border-bottom-color: #f14e32;
-        }
-        
-        .tab-content {
-            padding: 30px;
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .content-header {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e1e8f0;
-        }
-        
-        .content-header h2 {
-            font-size: 2rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
+        .logo {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--retro-border);
             display: flex;
             align-items: center;
             gap: 12px;
         }
         
-        .content-header p {
-            color: #64748b;
-            font-size: 1.1rem;
-            max-width: 800px;
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--retro-primary), var(--retro-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         
-        .commands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+        .logo i {
+            color: var(--retro-primary);
+            font-size: 1.8rem;
+        }
+        
+        .search-box {
+            padding: 20px;
+            border-bottom: 1px solid var(--retro-border);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--retro-bg);
+            border: 1px solid var(--retro-border);
+            border-radius: 6px;
+            color: var(--retro-text);
+            font-size: 0.95rem;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--retro-primary);
+        }
+        
+        .nav-section {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--retro-border);
+        }
+        
+        .nav-title {
+            padding: 0 20px 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--retro-secondary);
+            font-weight: 600;
+        }
+        
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--retro-highlight);
+        }
+        
+        .nav-item.active {
+            background-color: var(--retro-highlight);
+            border-left-color: var(--retro-primary);
+            color: var(--retro-primary);
+        }
+        
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .top-bar {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--retro-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--retro-card);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--retro-text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--retro-primary);
+        }
+        
+        .breadcrumb .separator {
+            color: var(--retro-border);
+        }
+        
+        .view-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .view-btn {
+            background: none;
+            border: 1px solid var(--retro-border);
+            color: var(--retro-text);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .view-btn:hover {
+            border-color: var(--retro-primary);
+            color: var(--retro-primary);
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             gap: 25px;
         }
         
+        /* Card Layout for Commands */
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 20px;
+        }
+        
         .command-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #3498db;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--retro-card);
+            border: 1px solid var(--retro-border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
         }
         
         .command-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-        }
-        
-        .command-card.create {
-            border-left-color: #2ecc71;
-        }
-        
-        .command-card.list {
-            border-left-color: #3498db;
-        }
-        
-        .command-card.push {
-            border-left-color: #9b59b6;
-        }
-        
-        .command-card.delete {
-            border-left-color: #e74c3c;
+            border-color: var(--retro-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .card-header {
@@ -168,324 +233,591 @@
         }
         
         .command-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--retro-primary);
         }
         
-        .command-type {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+        .copy-btn {
+            background-color: var(--retro-bg);
+            border: 1px solid var(--retro-border);
+            color: var(--retro-text);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         
-        .create .command-type {
-            background-color: #e8f6ef;
-            color: #27ae60;
-        }
-        
-        .list .command-type {
-            background-color: #ebf5fb;
-            color: #2980b9;
-        }
-        
-        .push .command-type {
-            background-color: #f4ecf7;
-            color: #8e44ad;
-        }
-        
-        .delete .command-type {
-            background-color: #fdedec;
-            color: #c0392b;
+        .copy-btn:hover {
+            background-color: var(--retro-primary);
+            color: var(--retro-bg);
+            border-color: var(--retro-primary);
         }
         
         .command-syntax {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 18px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
+            background-color: var(--retro-bg);
+            border: 1px solid var(--retro-border);
+            border-radius: 6px;
+            padding: 15px;
             margin-bottom: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--retro-secondary);
             overflow-x: auto;
-            white-space: nowrap;
+            white-space: pre-wrap;
+            word-break: break-all;
         }
         
         .command-desc {
-            color: #555;
-            font-size: 1.05rem;
+            color: var(--retro-text);
+            font-size: 0.95rem;
             line-height: 1.5;
         }
         
-        .note {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #fff9e6;
-            border-radius: 8px;
-            border-left: 4px solid #f39c12;
+        .command-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: var(--retro-highlight);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            color: var(--retro-accent);
         }
         
-        .note h3 {
-            color: #d35400;
+        /* Section Headers */
+        .section-header {
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+            gap: 15px;
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--retro-primary);
+            font-weight: 600;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--retro-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--retro-bg);
+            font-size: 1.2rem;
+        }
+        
+        .section-description {
+            color: var(--retro-secondary);
+            margin-bottom: 25px;
+            font-size: 1rem;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--retro-primary);
+            color: var(--retro-bg);
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
             gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 1000;
         }
         
-        footer {
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Empty State for Future Docs */
+        .empty-state {
             text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-            color: #7f8c8d;
-            border-top: 1px solid #ecf0f1;
-            font-size: 0.95rem;
+            padding: 60px 20px;
+            color: var(--retro-border);
         }
         
-        @media (max-width: 768px) {
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--retro-border);
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--retro-text);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
             .commands-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .command-syntax {
-                font-size: 1rem;
-                padding: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
             }
             
-            .tab {
-                padding: 15px 20px;
-                font-size: 1rem;
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
             }
             
-            header h1 {
-                font-size: 2rem;
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .view-controls {
+                align-self: flex-end;
             }
         }
         
-        @media (max-width: 480px) {
-            .container {
-                border-radius: 8px;
-            }
-            
-            header, .tab-content {
-                padding: 20px;
-            }
-            
-            .command-card {
-                padding: 20px;
-            }
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--retro-card);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--retro-border);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--retro-primary);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1><i class="fab fa-git-alt"></i> Git Tag Commands Reference</h1>
-            <p>Complete guide to creating, listing, pushing, and deleting tags in Git with detailed examples and explanations</p>
-        </header>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="git-tags">
-                <i class="fas fa-tags"></i>
-                Git Tag Commands
-            </div>
-            <div class="tab" data-tab="future-content-1">
-                <i class="fas fa-code-branch"></i>
-                Branch Commands
-            </div>
-            <div class="tab" data-tab="future-content-2">
-                <i class="fas fa-history"></i>
-                Commit History
-            </div>
-            <div class="tab" data-tab="future-content-3">
-                <i class="fas fa-cogs"></i>
-                Advanced Git
-            </div>
-        </div>
-        
-        <div class="tab-content active" id="git-tags">
-            <div class="content-header">
-                <h2><i class="fas fa-tag"></i> Git Tag Commands</h2>
-                <p>Tags are ref's that point to specific points in Git history. Tagging is generally used to capture a point in history that is used for a marked version release (i.e., v1.0.0).</p>
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-terminal"></i>
+                <h1>RETRO DOCS</h1>
             </div>
             
-            <div class="commands-grid">
-                <!-- Creating Tags -->
-                <div class="command-card create">
-                    <div class="card-header">
-                        <div class="command-title">Creating Tags</div>
-                        <div class="command-type">CREATE</div>
-                    </div>
-                    <div class="command-syntax">git tag tagName</div>
-                    <div class="command-desc">Creates a lightweight tag (pointer to a specific commit) for the current branch you've checked out.</div>
+            <div class="search-box">
+                <input type="text" placeholder="Search documentation...">
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Development</div>
+                <div class="nav-item active" data-section="git">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git Commands</span>
                 </div>
-                
-                <div class="command-card create">
-                    <div class="card-header">
-                        <div class="command-title">Annotated Tags</div>
-                        <div class="command-type">CREATE</div>
-                    </div>
-                    <div class="command-syntax">git tag -a tagName -m "message"</div>
-                    <div class="command-desc">Creates an annotated tag with a message. Annotated tags store extra metadata including the tagger name, email, and date.</div>
+                <div class="nav-item" data-section="docker">
+                    <i class="fab fa-docker"></i>
+                    <span>Docker</span>
                 </div>
-                
-                <!-- Listing Tags -->
-                <div class="command-card list">
-                    <div class="card-header">
-                        <div class="command-title">Listing Tags</div>
-                        <div class="command-type">LIST</div>
-                    </div>
-                    <div class="command-syntax">git tag</div>
-                    <div class="command-desc">Lists all tags in the current repository in alphabetical order.</div>
+                <div class="nav-item" data-section="linux">
+                    <i class="fab fa-linux"></i>
+                    <span>Linux Commands</span>
                 </div>
-                
-                <div class="command-card list">
-                    <div class="card-header">
-                        <div class="command-title">Show Tag Info</div>
-                        <div class="command-type">LIST</div>
-                    </div>
-                    <div class="command-syntax">git show tagName</div>
-                    <div class="command-desc">Shows information about a specific tag, including the tagger, date, and the associated commit.</div>
-                </div>
-                
-                <!-- Pushing Tags -->
-                <div class="command-card push">
-                    <div class="card-header">
-                        <div class="command-title">Push Single Tag</div>
-                        <div class="command-type">PUSH</div>
-                    </div>
-                    <div class="command-syntax">git push origin tagName</div>
-                    <div class="command-desc">Pushes a specific tag to the remote repository named "origin".</div>
-                </div>
-                
-                <div class="command-card push">
-                    <div class="card-header">
-                        <div class="command-title">Push All Tags</div>
-                        <div class="command-type">PUSH</div>
-                    </div>
-                    <div class="command-syntax">git push --tags</div>
-                    <div class="command-desc">Pushes all tags from your local repository to the remote repository.</div>
-                </div>
-                
-                <!-- Deleting Tags -->
-                <div class="command-card delete">
-                    <div class="card-header">
-                        <div class="command-title">Delete Local Tag</div>
-                        <div class="command-type">DELETE</div>
-                    </div>
-                    <div class="command-syntax">git tag -d tagName<br>git tag --delete tagName</div>
-                    <div class="command-desc">Deletes a tag from your local repository. Both commands work identically.</div>
-                </div>
-                
-                <div class="command-card delete">
-                    <div class="card-header">
-                        <div class="command-title">Delete Remote Tag</div>
-                        <div class="command-type">DELETE</div>
-                    </div>
-                    <div class="command-syntax">git push origin -d tagName<br>git push origin --delete tagName</div>
-                    <div class="command-desc">Deletes a tag from the remote repository. Both commands work identically.</div>
-                </div>
-                
-                <div class="command-card delete">
-                    <div class="card-header">
-                        <div class="command-title">Delete Multiple Tags</div>
-                        <div class="command-type">DELETE</div>
-                    </div>
-                    <div class="command-syntax">git tag -d tagName1 tagName2</div>
-                    <div class="command-desc">Deletes multiple tags from your local repository in a single command.</div>
-                </div>
-                
-                <div class="command-card delete">
-                    <div class="card-header">
-                        <div class="command-title">Delete Multiple Remote Tags</div>
-                        <div class="command-type">DELETE</div>
-                    </div>
-                    <div class="command-syntax">git push origin -d tagName1 tagName2</div>
-                    <div class="command-desc">Deletes multiple tags from the remote repository in a single command.</div>
+                <div class="nav-item" data-section="vscode">
+                    <i class="fas fa-code"></i>
+                    <span>VS Code</span>
                 </div>
             </div>
             
-            <div class="note">
-                <h3><i class="fas fa-lightbulb"></i> Important Notes</h3>
-                <p>1. Lightweight tags are just pointers to specific commits, while annotated tags are stored as full objects in the Git database with their own checksum, tagger info, and message.</p>
-                <p>2. Tags are not automatically pushed to remotes when you run <code>git push</code>. You must explicitly push tags using <code>git push --tags</code> or <code>git push origin tagName</code>.</p>
-                <p>3. Deleting a tag locally doesn't delete it from remote repositories, and vice versa. You need to delete tags in both places separately if needed.</p>
+            <div class="nav-section">
+                <div class="nav-title">Web Development</div>
+                <div class="nav-item" data-section="html">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML Reference</span>
+                </div>
+                <div class="nav-item" data-section="css">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS Reference</span>
+                </div>
+                <div class="nav-item" data-section="js">
+                    <i class="fab fa-js-square"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="nav-item" data-section="react">
+                    <i class="fab fa-react"></i>
+                    <span>React</span>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Database</div>
+                <div class="nav-item" data-section="sql">
+                    <i class="fas fa-database"></i>
+                    <span>SQL Commands</span>
+                </div>
+                <div class="nav-item" data-section="mongodb">
+                    <i class="fas fa-leaf"></i>
+                    <span>MongoDB</span>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">DevOps</div>
+                <div class="nav-item" data-section="kubernetes">
+                    <i class="fas fa-ship"></i>
+                    <span>Kubernetes</span>
+                </div>
+                <div class="nav-item" data-section="aws">
+                    <i class="fab fa-aws"></i>
+                    <span>AWS CLI</span>
+                </div>
             </div>
         </div>
         
-        <!-- Future Content Tabs -->
-        <div class="tab-content" id="future-content-1">
-            <div class="content-header">
-                <h2><i class="fas fa-code-branch"></i> Git Branch Commands</h2>
-                <p>This section will contain comprehensive Git branch commands and workflows.</p>
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="breadcrumb">
+                    <a href="#">Home</a>
+                    <span class="separator">/</span>
+                    <a href="#">Development</a>
+                    <span class="separator">/</span>
+                    <span>Git Commands</span>
+                </div>
+                
+                <div class="view-controls">
+                    <button class="view-btn" id="gridView">
+                        <i class="fas fa-th-large"></i>
+                        Grid
+                    </button>
+                    <button class="view-btn" id="listView">
+                        <i class="fas fa-list"></i>
+                        List
+                    </button>
+                </div>
             </div>
-            <div style="text-align: center; padding: 60px 20px; color: #7f8c8d;">
-                <i class="fas fa-tools fa-3x" style="margin-bottom: 20px;"></i>
-                <h3>Content Coming Soon</h3>
-                <p>This section is under development. Check back later for Git branch commands and workflows.</p>
+            
+            <div class="content-area">
+                <!-- Git Commands Section (Default) -->
+                <div id="git" class="content-section active">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fab fa-git-alt"></i>
+                        </div>
+                        <h2>Git Commands Reference</h2>
+                    </div>
+                    
+                    <p class="section-description">
+                        Complete guide to Git commands for version control. Tags are ref's that point to specific points in Git history. 
+                        Tagging is generally used to capture a point in history that is used for a marked version release.
+                    </p>
+                    
+                    <div class="commands-grid">
+                        <!-- Git Commands will be inserted here by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Other Sections (Initially Hidden) -->
+                <div id="docker" class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <h2>Docker Commands</h2>
+                    </div>
+                    
+                    <p class="section-description">
+                        Docker commands for container management, image building, and orchestration.
+                    </p>
+                    
+                    <div class="empty-state">
+                        <i class="fab fa-docker"></i>
+                        <h3>Docker Documentation</h3>
+                        <p>Docker commands and examples will be added here soon.</p>
+                    </div>
+                </div>
+                
+                <div id="linux" class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fab fa-linux"></i>
+                        </div>
+                        <h2>Linux Commands</h2>
+                    </div>
+                    
+                    <p class="section-description">
+                        Essential Linux commands for file management, process control, and system administration.
+                    </p>
+                    
+                    <div class="empty-state">
+                        <i class="fab fa-linux"></i>
+                        <h3>Linux Documentation</h3>
+                        <p>Linux commands and examples will be added here soon.</p>
+                    </div>
+                </div>
+                
+                <!-- Add more sections for other documentation topics -->
             </div>
         </div>
         
-        <div class="tab-content" id="future-content-2">
-            <div class="content-header">
-                <h2><i class="fas fa-history"></i> Git Commit History</h2>
-                <p>This section will contain commands for viewing and navigating Git commit history.</p>
-            </div>
-            <div style="text-align: center; padding: 60px 20px; color: #7f8c8d;">
-                <i class="fas fa-tools fa-3x" style="margin-bottom: 20px;"></i>
-                <h3>Content Coming Soon</h3>
-                <p>This section is under development. Check back later for Git commit history commands and visualization.</p>
-            </div>
+        <!-- Toast Notification -->
+        <div class="toast" id="copyToast">
+            <i class="fas fa-check-circle"></i>
+            <span>Command copied to clipboard!</span>
         </div>
-        
-        <div class="tab-content" id="future-content-3">
-            <div class="content-header">
-                <h2><i class="fas fa-cogs"></i> Advanced Git Commands</h2>
-                <p>This section will contain advanced Git commands for complex workflows and troubleshooting.</p>
-            </div>
-            <div style="text-align: center; padding: 60px 20px; color: #7f8c8d;">
-                <i class="fas fa-tools fa-3x" style="margin-bottom: 20px;"></i>
-                <h3>Content Coming Soon</h3>
-                <p>This section is under development. Check back later for advanced Git commands and techniques.</p>
-            </div>
-        </div>
-        
-        <footer>
-            <p>Git Tag Commands Reference | Created for learning and reference purposes</p>
-            <p style="margin-top: 10px;">New content will be added to additional tabs in the future.</p>
-        </footer>
     </div>
 
     <script>
-        // Tab switching functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Show corresponding content
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
+        // Git Commands Data
+        const gitCommands = [
+            {
+                title: "Create Lightweight Tag",
+                syntax: "git tag tagName",
+                desc: "Creates a lightweight tag for the current commit. Lightweight tags are just pointers to specific commits.",
+                tag: "CREATE"
+            },
+            {
+                title: "Create Annotated Tag",
+                syntax: 'git tag -a tagName -m "message"',
+                desc: "Creates an annotated tag with a message. Annotated tags store extra metadata including tagger name, email, and date.",
+                tag: "CREATE"
+            },
+            {
+                title: "List Tags",
+                syntax: "git tag",
+                desc: "Lists all tags in the current repository in alphabetical order.",
+                tag: "LIST"
+            },
+            {
+                title: "Show Tag Info",
+                syntax: "git show tagName",
+                desc: "Shows information about a specific tag, including the tagger, date, and the associated commit.",
+                tag: "INFO"
+            },
+            {
+                title: "Push Single Tag",
+                syntax: "git push origin tagName",
+                desc: "Pushes a specific tag to the remote repository named 'origin'.",
+                tag: "PUSH"
+            },
+            {
+                title: "Push All Tags",
+                syntax: "git push --tags",
+                desc: "Pushes all tags from your local repository to the remote repository.",
+                tag: "PUSH"
+            },
+            {
+                title: "Delete Local Tag",
+                syntax: "git tag -d tagName",
+                desc: "Deletes a tag from your local repository. Also works with: git tag --delete tagName",
+                tag: "DELETE"
+            },
+            {
+                title: "Delete Remote Tag",
+                syntax: "git push origin -d tagName",
+                desc: "Deletes a tag from the remote repository. Also works with: git push origin --delete tagName",
+                tag: "DELETE"
+            },
+            {
+                title: "Delete Multiple Tags",
+                syntax: "git tag -d tagName1 tagName2",
+                desc: "Deletes multiple tags from your local repository in a single command.",
+                tag: "DELETE"
+            },
+            {
+                title: "Delete Multiple Remote Tags",
+                syntax: "git push origin -d tagName1 tagName2",
+                desc: "Deletes multiple tags from the remote repository in a single command.",
+                tag: "DELETE"
+            }
+        ];
+        
+        // Initialize the page with Git commands
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGitCommands();
+            setupEventListeners();
         });
         
-        // Add subtle animation to command cards on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.command-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+        // Render Git commands to the grid
+        function renderGitCommands() {
+            const grid = document.querySelector('#git .commands-grid');
+            grid.innerHTML = '';
+            
+            gitCommands.forEach(command => {
+                const card = document.createElement('div');
+                card.className = 'command-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="command-title">${command.title}</div>
+                        <button class="copy-btn" title="Copy to clipboard">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="command-syntax">${command.syntax}</div>
+                    <div class="command-desc">${command.desc}</div>
+                    <div class="command-tag">${command.tag}</div>
+                `;
                 
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 + index * 50);
+                // Add copy functionality
+                const copyBtn = card.querySelector('.copy-btn');
+                copyBtn.addEventListener('click', () => {
+                    copyToClipboard(command.syntax);
+                });
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Setup event listeners for navigation and controls
+        function setupEventListeners() {
+            // Navigation items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all nav items
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Get the section to show
+                    const sectionId = item.getAttribute('data-section');
+                    
+                    // Hide all content sections
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show the selected section
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // Update breadcrumb
+                    updateBreadcrumb(item.querySelector('span').textContent);
+                });
+            });
+            
+            // View controls
+            document.getElementById('gridView').addEventListener('click', () => {
+                const grid = document.querySelector('.commands-grid');
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(450px, 1fr))';
+                document.getElementById('gridView').style.borderColor = 'var(--retro-primary)';
+                document.getElementById('listView').style.borderColor = 'var(--retro-border)';
+            });
+            
+            document.getElementById('listView').addEventListener('click', () => {
+                const grid = document.querySelector('.commands-grid');
+                grid.style.gridTemplateColumns = '1fr';
+                document.getElementById('listView').style.borderColor = 'var(--retro-primary)';
+                document.getElementById('gridView').style.borderColor = 'var(--retro-border)';
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-box input');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                if (searchTerm.length === 0) {
+                    // Show all commands
+                    document.querySelectorAll('.command-card').forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    return;
+                }
+                
+                // Filter commands
+                document.querySelectorAll('.command-card').forEach(card => {
+                    const title = card.querySelector('.command-title').textContent.toLowerCase();
+                    const syntax = card.querySelector('.command-syntax').textContent.toLowerCase();
+                    const desc = card.querySelector('.command-desc').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || syntax.includes(searchTerm) || desc.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Copy text to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Command copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy command');
+            });
+        }
+        
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('copyToast');
+            toast.querySelector('span').textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+        
+        // Update breadcrumb
+        function updateBreadcrumb(sectionName) {
+            const breadcrumb = document.querySelector('.breadcrumb');
+            breadcrumb.innerHTML = `
+                <a href="#">Home</a>
+                <span class="separator">/</span>
+                <span>${sectionName}</span>
+            `;
+        }
+        
+        // Add some sample data for other sections on click
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                
+                // Only add content if the section is empty (has empty-state)
+                if (section.querySelector('.empty-state') && sectionId !== 'git') {
+                    // Simulate loading content for other sections
+                    setTimeout(() => {
+                        const emptyState = section.querySelector('.empty-state');
+                        emptyState.innerHTML = `
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h3>Loading ${this.querySelector('span').textContent}...</h3>
+                            <p>Content is being loaded. This is a simulation for the demo.</p>
+                        `;
+                        
+                        // Simulate a delay for loading
+                        setTimeout(() => {
+                            emptyState.innerHTML = `
+                                <i class="fas fa-check-circle" style="color: var(--retro-primary)"></i>
+                                <h3>${this.querySelector('span').textContent} Documentation</h3>
+                                <p>This section would contain detailed documentation for ${this.querySelector('span').textContent}.</p>
+                                <p style="margin-top: 20px; font-size: 0.9rem;">In a real implementation, this would be populated with actual commands and references.</p>
+                            `;
+                        }, 1000);
+                    }, 300);
+                }
             });
         });
     </script>
